@@ -1,7 +1,7 @@
 # Refactor-VBA-Code
 Refactoring VBA Code for Green Stocks analysis
 
-Our Excel macro file for Stock analysis follows the sequences:
+**Our Excel macro file for Stock analysis follows the sequences:**
 
 1. Format the output sheet on the "All Stocks Analysis" worksheet.
 2. Initialize an array of all tickers.
