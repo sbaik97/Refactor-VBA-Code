@@ -154,7 +154,8 @@ Use a for loop to loop through your arrays (tickers, tickerVolumes, tickerStarti
         End If
 
 
-#### Step 5. #### Format the output sheet on All Stocks Analysis worksheet
+#### Step 5. #### 
+Format the output sheet on All Stocks Analysis worksheet
 
     Worksheets("AllStocksAnalysisRefactored").Activate
     
@@ -198,7 +199,8 @@ Use a for loop to loop through your arrays (tickers, tickerVolumes, tickerStarti
         
     Next i
  
- #### Step 6. #### Performance check
+ #### Step 6. #### 
+ Performance check
  
     endTime = Timer
     MsgBox "This code ran in " & (endTime - startTime) & " seconds for the year " & (yearValue)
