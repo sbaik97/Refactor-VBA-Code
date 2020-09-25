@@ -1,18 +1,9 @@
 # Refactor-VBA-Code
 Refactoring VBA Code for Green Stocks analysis
 
-**Our Excel macro file for Stock analysis follows the sequences:**
-
-1. Format the output sheet on the "All Stocks Analysis" worksheet.
-2. Initialize an array of all tickers.
-3. Prepare for the analysis of tickers.
-4. Initialize variables for the starting price and ending price.
-5. Activate the data worksheet.
-6. Find the number of rows to loop over.
-7. Loop through the tickers.
-8. Loop through rows in the data.
-9. Find the total volume for the current ticker.
-10. Find the starting price for the current ticker.
-11. Find the ending price for the current ticker.
-12. Output the data for the current ticker.
-13. Write the Macro
+**Project Background**
+The purpose of this stock analysis is helping client obtain and compare Total Daily Volume and Yearly Return of all stocks in particular year. 
+The VBA code provides essentially infnite extensibility to Excel and using code to automate tasks decreases the chance of errors and reduces
+the time needed to run analyses, especially if they need to be done repeatedly.
+Refactor project will provide the solution code to loop through all the data one time in order to collect the same information that you did in other module.
+Finally, we determined whether the refactoring code successfully made the VBA script run faster.
