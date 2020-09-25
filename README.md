@@ -25,7 +25,7 @@ Finally, we also confirmed that the refractor outputs for 2017 and 2018 are the 
 
 ## Logic Flow
 
-Basic settings
+### Basic settings ###
 
 'Get the Start and End Time
 
@@ -61,38 +61,154 @@ Basic settings
 
 
 Step 1a:
+Create a tickerIndex variable and set it equal to zero before iterating over all the rows. 
 
-Create a tickerIndex variable and set it equal to zero before iterating over all the rows. You will use this tickerIndex to access the correct index across the four different arrays you’ll be using: the tickers array and the three output arrays you’ll create in Step 1b.
 
+    '1a) Create a ticker Index
+    Dim tickerIndex As Integer
+    tickerIndex = 0
 
 
 Step 1b:
-
 Create three output arrays: tickerVolumes, tickerStartingPrices, and tickerEndingPrices.
-The tickerVolumes array should be a Long data type.
-The tickerStartingPrices and tickerEndingPrices arrays should be a Single data type.
+
+    '1b) Create three output arrays
+    
+    Dim tickerStartingPrices(12) As Single
+    Dim tickerEndingPrices(12) As Single
+    Dim tickerVolumes(12) As Long
+        
+
 Step 2a:
-
 Create a for loop to initialize the tickerVolumes to zero. If the next row’s ticker doesn’t match, increase the tickerIndex.
+
+    '2a) Create a for loop to initialize the tickerVolumes to zero.
+        
+    For tickerIndex = 0 To 11
+        tickerVolumes(tickerIndex) = 0
+        
+        ' If the next row's ticker doesn't match, increase the tickerIndex.
+        If tickers(tickerIndex + 1) <> tickers(tickerIndex) Then
+        tickerIndex = tickerIndex + 1
+
+        End If
+     
+    Next tickerIndex
+
 Step 2b:
-
 Create a for loop that will loop over all the rows in the spreadsheet.
-Step 3a:
 
+        Worksheets(yearValue).Activate
+        For tickerIndex = 0 To 11
+            For i = 2 To RowCount
+
+
+Step 3a:
 Inside the for loop in Step 2b, write a script that increases the current tickerVolumes (stock ticker volume) variable and adds the ticker volume for the current stock ticker.
 Use the tickerIndex variable as the index.
-If you’d like a hint on how to increase the current tickerVolumes by using the tickerIndex variable as the index, that’s totally okay. If not, that’s great too. You can always revisit this later if you change your mind.
 
-HINT
+            If Cells(i, 1).Value = tickers(tickerIndex) Then
+                tickerVolumes(tickerIndex) = tickerVolumes(tickerIndex) + Cells(i, 8).Value
+                
+            End If
+
 Step 3b:
-
 Write an if-then statement to check if the current row is the first row with the selected tickerIndex. If it is, then assign the current closing price to the tickerStartingPrices variable.
+
+            '3b) Check if the current row is the first row with the selected tickerIndex.
+            'If  Then
+            If Cells(i, 1).Value <> Cells(i - 1, 1).Value Then
+                tickerStartingPrices(tickerIndex) = Cells(i, 6).Value
+
 Step 3c:
-
 Write an if-then statement to check if the current row is the last row with the selected tickerIndex. If it is, then assign the current closing price to the tickerEndingPrices variable.
-Step 3d:
 
+            If Cells(i + 1, 1).Value <> Cells(i, 1).Value Then
+                tickerEndingPrices(tickerIndex) = Cells(i, 6).Value
+
+Step 3d:
 Write a script that increases the tickerIndex if the next row’s ticker doesn’t match the previous row’s ticker.
+            '3d Increase the tickerIndex.
+                tickerIndex = tickerIndex + 1
+        'End If
+            End If
+        
+        Next i
+    
+    Next tickerIndex
+    
+    
 Step 4:
 
 Use a for loop to loop through your arrays (tickers, tickerVolumes, tickerStartingPrices, and tickerEndingPrices) to output the “Ticker,” “Total Daily Volume,” and “Return” columns in your spreadsheet.
+
+    '4) Loop through your arrays to output the Ticker, Total Daily Volume, and Return.
+    Worksheets("AllStocksAnalysisRefactored").Activate
+    Dim Yearcolumn As Integer
+    
+    For tickerIndex = 0 To 11
+        If yearValue = 2017 Then
+            Yearcolumn = 1
+        Else
+            Yearcolumn = 10
+        End If
+
+
+Step 5.Format the output sheet on All Stocks Analysis worksheet
+
+    Worksheets("AllStocksAnalysisRefactored").Activate
+    
+    Cells(1, Yearcolumn).Value = "All Stocks (" + yearValue + ")"
+    
+    'Create a header row
+    Cells(3, Yearcolumn).Value = "Ticker"
+    Cells(3, Yearcolumn + 1).Value = "Total Daily Volume"
+    Cells(3, Yearcolumn + 2).Value = "Return"
+        
+        
+        
+        Worksheets("AllStocksAnalysisRefactored").Activate
+        Cells(4 + tickerIndex, Yearcolumn).Value = tickers(tickerIndex)
+        Cells(4 + tickerIndex, Yearcolumn + 1).Value = tickerVolumes(tickerIndex)
+        Cells(4 + tickerIndex, Yearcolumn + 2).Value = tickerEndingPrices(tickerIndex) / tickerStartingPrices(tickerIndex) - 1
+        
+     
+    'Formatting
+    Worksheets("AllStocksAnalysisRefactored").Activate
+    Range(Cells(3, Yearcolumn), Cells(3, Yearcolumn + 2)).Font.FontStyle = "Bold Italic"
+    Range(Cells(3, Yearcolumn), Cells(3, Yearcolumn + 2)).Borders(xlEdgeBottom).LineStyle = xlContinuous
+    Range(Cells(4, Yearcolumn + 1), Cells(15, Yearcolumn + 1)).NumberFormat = "#,##0"
+    Range(Cells(4, Yearcolumn + 2), Cells(15, Yearcolumn + 2)).NumberFormat = "0.0%"
+    Columns(Yearcolumn + 1).EntireColumn.AutoFit
+  
+  Next tickerIndex
+  
+  
+  
+    dataRowStart = 4
+    dataRowEnd = 15
+
+    For i = dataRowStart To dataRowEnd
+        
+        If Cells(i, Yearcolumn + 2) > 0 Then
+            
+            Cells(i, Yearcolumn + 2).Interior.Color = vbGreen
+            
+        Else
+        
+            Cells(i, Yearcolumn + 2).Interior.Color = vbRed
+            
+        End If
+        
+    Next i
+ 
+ Step 6. Performance check
+ 
+    endTime = Timer
+    MsgBox "This code ran in " & (endTime - startTime) & " seconds for the year " & (yearValue)
+
+End Sub
+
+
+
+
