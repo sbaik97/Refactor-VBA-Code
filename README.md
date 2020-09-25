@@ -13,8 +13,8 @@ Finally, we determined whether the refactoring code successfully made the VBA sc
 ## Conclusion
 In 2018, only *ENPH* and *RUN* two stocks had positive yearly Return as well as large Total Daily Volume. Both of them was outperformance than others green stocks.
 
-![Refactor-VBA-Code](VBA_Challenge_2017.PNG)
+![](VBA_Challenge_2018.PNG)
 
 In 2017, all of stocks had positive Return except *TERP* (-7.2%). "DQ" made best yearly return with 199.4% but with lowest total Daily Volume (35,796,200) in 2017.
 
-![](/2017Analysis.JPG)
+![](VBA_Challenge_2017.PNG)
