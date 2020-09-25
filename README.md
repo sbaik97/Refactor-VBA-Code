@@ -18,3 +18,5 @@ In 2018, only *ENPH* and *RUN* two stocks had positive yearly Return as well as 
 In 2017, all of stocks had positive Return except *TERP* (-7.2%). "DQ" made best yearly return with 199.4% but with lowest total Daily Volume (35,796,200) in 2017.
 
 ![](VBA_Challenge_2017.PNG)
+
+Finally, run the stock analysis, then confirm that the refractor outputs for 2017 and 2018 are the same as they were in other modules: however the times for calcuating the stock analyses are much faster: 0.289 and 0.386 vs. 0.547 and 0.551 seconds for 2017 and 2018, repsectively. 
