@@ -60,7 +60,7 @@ Finally, we also confirmed that the refractor outputs for 2017 and 2018 are the 
     RowCount = Cells(Rows.Count, "A").End(xlUp).Row
 
 
-Step 1a:
+#### Step 1a: ####
 Create a tickerIndex variable and set it equal to zero before iterating over all the rows. 
 
 
@@ -69,7 +69,7 @@ Create a tickerIndex variable and set it equal to zero before iterating over all
     tickerIndex = 0
 
 
-Step 1b:
+#### Step 1b: ####
 Create three output arrays: tickerVolumes, tickerStartingPrices, and tickerEndingPrices.
 
     '1b) Create three output arrays
@@ -79,7 +79,7 @@ Create three output arrays: tickerVolumes, tickerStartingPrices, and tickerEndin
     Dim tickerVolumes(12) As Long
         
 
-Step 2a:
+#### Step 2a: ####
 Create a for loop to initialize the tickerVolumes to zero. If the next row’s ticker doesn’t match, increase the tickerIndex.
 
     '2a) Create a for loop to initialize the tickerVolumes to zero.
@@ -95,7 +95,7 @@ Create a for loop to initialize the tickerVolumes to zero. If the next row’s t
      
     Next tickerIndex
 
-Step 2b:
+#### Step 2b: ####
 Create a for loop that will loop over all the rows in the spreadsheet.
 
         Worksheets(yearValue).Activate
@@ -112,7 +112,7 @@ Use the tickerIndex variable as the index.
                 
             End If
 
-Step 3b:
+#### Step 3b: ####
 Write an if-then statement to check if the current row is the first row with the selected tickerIndex. If it is, then assign the current closing price to the tickerStartingPrices variable.
 
             '3b) Check if the current row is the first row with the selected tickerIndex.
@@ -120,13 +120,13 @@ Write an if-then statement to check if the current row is the first row with the
             If Cells(i, 1).Value <> Cells(i - 1, 1).Value Then
                 tickerStartingPrices(tickerIndex) = Cells(i, 6).Value
 
-Step 3c:
+#### Step 3c: ####
 Write an if-then statement to check if the current row is the last row with the selected tickerIndex. If it is, then assign the current closing price to the tickerEndingPrices variable.
 
             If Cells(i + 1, 1).Value <> Cells(i, 1).Value Then
                 tickerEndingPrices(tickerIndex) = Cells(i, 6).Value
 
-Step 3d:
+#### Step 3d: ####
 Write a script that increases the tickerIndex if the next row’s ticker doesn’t match the previous row’s ticker.
             '3d Increase the tickerIndex.
                 tickerIndex = tickerIndex + 1
@@ -138,7 +138,7 @@ Write a script that increases the tickerIndex if the next row’s ticker doesn�
     Next tickerIndex
     
     
-Step 4:
+#### Step 4: ####
 
 Use a for loop to loop through your arrays (tickers, tickerVolumes, tickerStartingPrices, and tickerEndingPrices) to output the “Ticker,” “Total Daily Volume,” and “Return” columns in your spreadsheet.
 
@@ -154,7 +154,7 @@ Use a for loop to loop through your arrays (tickers, tickerVolumes, tickerStarti
         End If
 
 
-Step 5.Format the output sheet on All Stocks Analysis worksheet
+#### Step 5. #### Format the output sheet on All Stocks Analysis worksheet
 
     Worksheets("AllStocksAnalysisRefactored").Activate
     
@@ -164,14 +164,11 @@ Step 5.Format the output sheet on All Stocks Analysis worksheet
     Cells(3, Yearcolumn).Value = "Ticker"
     Cells(3, Yearcolumn + 1).Value = "Total Daily Volume"
     Cells(3, Yearcolumn + 2).Value = "Return"
-        
-        
-        
+ 
         Worksheets("AllStocksAnalysisRefactored").Activate
         Cells(4 + tickerIndex, Yearcolumn).Value = tickers(tickerIndex)
         Cells(4 + tickerIndex, Yearcolumn + 1).Value = tickerVolumes(tickerIndex)
         Cells(4 + tickerIndex, Yearcolumn + 2).Value = tickerEndingPrices(tickerIndex) / tickerStartingPrices(tickerIndex) - 1
-        
      
     'Formatting
     Worksheets("AllStocksAnalysisRefactored").Activate
@@ -180,8 +177,7 @@ Step 5.Format the output sheet on All Stocks Analysis worksheet
     Range(Cells(4, Yearcolumn + 1), Cells(15, Yearcolumn + 1)).NumberFormat = "#,##0"
     Range(Cells(4, Yearcolumn + 2), Cells(15, Yearcolumn + 2)).NumberFormat = "0.0%"
     Columns(Yearcolumn + 1).EntireColumn.AutoFit
-  
-  Next tickerIndex
+    Next tickerIndex
   
   
   
@@ -202,12 +198,11 @@ Step 5.Format the output sheet on All Stocks Analysis worksheet
         
     Next i
  
- Step 6. Performance check
+ #### Step 6. #### Performance check
  
     endTime = Timer
     MsgBox "This code ran in " & (endTime - startTime) & " seconds for the year " & (yearValue)
-
-End Sub
+    End Sub
 
 
 
